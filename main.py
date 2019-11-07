@@ -10,7 +10,7 @@ class Matrix:
 
     def SpectralRadius(self, matrix):
         eigenvalues, eigenvectors = np.linalg.eig(matrix)
-        return np.max(eigenvalues)
+        return np.max(np.abs(eigenvalues))
 
     def Norm(self, matrix, value = 2):
         if value == 1:
@@ -172,98 +172,124 @@ m = Matrix(f)
 # m.SuccessiveOverRelaxation(m_A, m_b, wb, level=5)
 
 n = 6
-w = 1.0
 level = 100
 matrix_hilbert = Hilbert(n)
 matrix_b = matrix_hilbert.dot(m.Transposition(np.ones(n)))
 
-# print(m.SpectralRadius(m.MatrixBJ(matrix_hilbert)))
-# print(m.SpectralRadius(m.MatrixBSOR(matrix_hilbert, w = 1)))
+f2.write("Hilbert n = {}\n".format(n))
 
-f2.write("n = " + str(n) + "\n")
-f2.write("Jacobi Solve:\n")
-f2.write("B = {}\n".format(str(m.MatrixBJ(matrix_hilbert))))
-f2.write("Spectral Radius = {}\n".format(str(m.SpectralRadius(m.MatrixBJ(matrix_hilbert)))))
-f2.write("level = {}\n".format(str(level)))
-f2.write("result = {}\n".format(str(m.JacobiSolve(matrix_hilbert, matrix_b, level=level))))
+f2.write("\nJacobi Solve:\n")
+# f2.write("B = {}\n".format(m.MatrixBJ(matrix_hilbert)))
+f2.write("Spectral Radius = {}\n".format(m.SpectralRadius(m.MatrixBJ(matrix_hilbert))))
 
-m.SuccessiveOverRelaxation(matrix_hilbert, matrix_b, w=w, level=100)
+w = 1.0
+f2.write("\nSuccessive Over Relaxation Solve:\n")
+f2.write("w = {}\n".format(w))
+# f2.write("B = {}\n".format(m.MatrixBSOR(matrix_hilbert, w=w)))
+f2.write("Spectral Radius = {}\n".format(m.SpectralRadius(m.MatrixBSOR(matrix_hilbert, w=w))))
+f2.write("level = {}\n".format(level))
+result = m.SuccessiveOverRelaxation(matrix_hilbert, matrix_b, level=level, w=w)
+f2.write("result = {}\n".format(result))
+f2.write("e = {}\n".format(np.linalg.norm(result - m.Transposition(np.ones(n)))))
 
+w = 1.25
+f2.write("\nSuccessive Over Relaxation Solve:\n")
+f2.write("w = {}\n".format(w))
+# f2.write("B = {}\n".format(m.MatrixBSOR(matrix_hilbert, w=w)))
+f2.write("Spectral Radius = {}\n".format(m.SpectralRadius(m.MatrixBSOR(matrix_hilbert, w=w))))
+f2.write("level = {}\n".format(level))
+result = m.SuccessiveOverRelaxation(matrix_hilbert, matrix_b, level=level, w=w)
+f2.write("result = {}\n".format(result))
+f2.write("e = {}\n".format(np.linalg.norm(result - m.Transposition(np.ones(n)))))
+
+w = 1.5
+f2.write("\nSuccessive Over Relaxation Solve:\n")
+f2.write("w = {}\n".format(w))
+# f2.write("B = {}\n".format(m.MatrixBSOR(matrix_hilbert, w=w)))
+f2.write("Spectral Radius = {}\n".format(m.SpectralRadius(m.MatrixBSOR(matrix_hilbert, w=w))))
+f2.write("level = {}\n".format(level))
+result = m.SuccessiveOverRelaxation(matrix_hilbert, matrix_b, level=level, w=w)
+f2.write("result = {}\n".format(result))
+f2.write("e = {}\n".format(np.linalg.norm(result - m.Transposition(np.ones(n)))))
+
+
+n = 8
+matrix_hilbert = Hilbert(n)
+matrix_b = matrix_hilbert.dot(m.Transposition(np.ones(n)))
+f2.write("\n\nHilbert n = {}\n".format(n))
+
+f2.write("\nJacobi Solve:\n")
+# f2.write("B = {}\n".format(m.MatrixBJ(matrix_hilbert)))
+f2.write("Spectral Radius = {}\n".format(m.SpectralRadius(m.MatrixBJ(matrix_hilbert))))
+
+w = 1.0
+f2.write("\nSuccessive Over Relaxation Solve:\n")
+f2.write("w = {}\n".format(w))
+# f2.write("B = {}\n".format(m.MatrixBSOR(matrix_hilbert, w=w)))
+f2.write("Spectral Radius = {}\n".format(m.SpectralRadius(m.MatrixBSOR(matrix_hilbert, w=w))))
+f2.write("level = {}\n".format(level))
+result = m.SuccessiveOverRelaxation(matrix_hilbert, matrix_b, level=level, w=w)
+f2.write("result = {}\n".format(result))
+f2.write("e = {}\n".format(np.linalg.norm(result - m.Transposition(np.ones(n)))))
+
+w = 1.25
+f2.write("\nSuccessive Over Relaxation Solve:\n")
+f2.write("w = {}\n".format(w))
+# f2.write("B = {}\n".format(m.MatrixBSOR(matrix_hilbert, w=w)))
+f2.write("Spectral Radius = {}\n".format(m.SpectralRadius(m.MatrixBSOR(matrix_hilbert, w=w))))
+f2.write("level = {}\n".format(level))
+result = m.SuccessiveOverRelaxation(matrix_hilbert, matrix_b, level=level, w=w)
+f2.write("result = {}\n".format(result))
+f2.write("e = {}\n".format(np.linalg.norm(result - m.Transposition(np.ones(n)))))
+
+w = 1.5
+f2.write("\nSuccessive Over Relaxation Solve:\n")
+f2.write("w = {}\n".format(w))
+# f2.write("B = {}\n".format(m.MatrixBSOR(matrix_hilbert, w=w)))
+f2.write("Spectral Radius = {}\n".format(m.SpectralRadius(m.MatrixBSOR(matrix_hilbert, w=w))))
+f2.write("level = {}\n".format(level))
+result = m.SuccessiveOverRelaxation(matrix_hilbert, matrix_b, level=level, w=w)
+f2.write("result = {}\n".format(result))
+f2.write("e = {}\n".format(np.linalg.norm(result - m.Transposition(np.ones(n)))))
+
+
+n = 10
+matrix_hilbert = Hilbert(n)
+matrix_b = matrix_hilbert.dot(m.Transposition(np.ones(n)))
+f2.write("\n\nHilbert n = {}\n".format(n))
+
+f2.write("\nJacobi Solve:\n")
+# f2.write("B = {}\n".format(m.MatrixBJ(matrix_hilbert)))
+f2.write("Spectral Radius = {}\n".format(m.SpectralRadius(m.MatrixBJ(matrix_hilbert))))
+
+w = 1.0
+f2.write("\nSuccessive Over Relaxation Solve:\n")
+f2.write("w = {}\n".format(w))
+# f2.write("B = {}\n".format(m.MatrixBSOR(matrix_hilbert, w=w)))
+f2.write("Spectral Radius = {}\n".format(m.SpectralRadius(m.MatrixBSOR(matrix_hilbert, w=w))))
+f2.write("level = {}\n".format(level))
+result = m.SuccessiveOverRelaxation(matrix_hilbert, matrix_b, level=level, w=w)
+f2.write("result = {}\n".format(result))
+f2.write("e = {}\n".format(np.linalg.norm(result - m.Transposition(np.ones(n)))))
+
+w = 1.25
+f2.write("\nSuccessive Over Relaxation Solve:\n")
+f2.write("w = {}\n".format(w))
+# f2.write("B = {}\n".format(m.MatrixBSOR(matrix_hilbert, w=w)))
+f2.write("Spectral Radius = {}\n".format(m.SpectralRadius(m.MatrixBSOR(matrix_hilbert, w=w))))
+f2.write("level = {}\n".format(level))
+result = m.SuccessiveOverRelaxation(matrix_hilbert, matrix_b, level=level, w=w)
+f2.write("result = {}\n".format(result))
+f2.write("e = {}\n".format(np.linalg.norm(result - m.Transposition(np.ones(n)))))
+
+w = 1.5
+f2.write("\nSuccessive Over Relaxation Solve:\n")
+f2.write("w = {}\n".format(w))
+# f2.write("B = {}\n".format(m.MatrixBSOR(matrix_hilbert, w=w)))
+f2.write("Spectral Radius = {}\n".format(m.SpectralRadius(m.MatrixBSOR(matrix_hilbert, w=w))))
+f2.write("level = {}\n".format(level))
+result = m.SuccessiveOverRelaxation(matrix_hilbert, matrix_b, level=level, w=w)
+f2.write("result = {}\n".format(result))
+f2.write("e = {}\n".format(np.linalg.norm(result - m.Transposition(np.ones(n)))))
 
 print("finish")
-
-# matrix_b_j = m.MatrixBJ(coefficient_matrix_exercise_3_1)
-# print("B_J = ", str(m.MatrixBJ(coefficient_matrix_exercise_3_1)))
-# print(m.SpectralRadius(matrix_b_j))
-# matrix_b_g = m.MatrixBG(coefficient_matrix_exercise_3_1)
-# print("B_G = ", str(m.MatrixBG(coefficient_matrix_exercise_3_1)))
-# print(m.SpectralRadius(matrix_b_g))
-
-
-
-# print(m.MatrixBG(np.array(augmented_matrix_exercise_2_1)[:, :-1]))
-# print(m.MatrixBJ(np.array(augmented_matrix_exercise_2_1)[:, :-1]))
-# print(m.SpectralRadius(m.MatrixBJ(np.array(augmented_matrix_exercise_2_1)[:, :-1])))
-# print(m.CoefficientWB(np.array(augmented_matrix_exercise_2_1)[:, :-1]))
-
-
-# m.JacobiSolve(m_A, m_b)
-# m.GaussSeidelSolve(m_A, m_b)
-# m.SuccessiveOverRelaxation(m_A, m_b, 1.25, m.Transposition([1]*3),7)
-# m.SuccessiveOverRelaxation(m_A, m_b, 1, m.Transposition([1]*3),7)
-
-
-# class Solve:
-#     def __init__(self, augmented_matrix):
-#         super().__init__()
-#         self.__solve(augmented_matrix)
-
-#     def __solve(self, augmented_matrix):
-#         self.augmented_matrix = np.array(augmented_matrix, dtype=float)
-#         (self.row, self.column) = self.augmented_matrix.shape
-#         assert (self.row + 1 == self.column)
-#         self.__iteration_matrix = np.array(self.augmented_matrix)
-#         for i in range(self.row):
-#             aii = self.__iteration_matrix[i][i]
-#             assert (aii != 0)
-#             self.__iteration_matrix[i] = self.__iteration_matrix[i] / (-aii)
-#             self.__iteration_matrix[i][i] = 0
-#         self.__iteration_matrix[:, -1] *= -1
-
-#     def CoefficientMatrix(self):
-#         return np.delete(self.augmented_matrix, -1, axis = 1)
-
-#     def IterationMatrix(self):
-#         return np.delete(self.__iteration_matrix, -1, axis = 1)
-
-#     def BArray(self):
-#         return self.augmented_matrix[:, -1]
-#     def FArray(self):
-#         return self.__iteration_matrix[:, -1]
-
-#     def JacobiSolve(self, xs, level = 5):
-#         xs = np.transpose([np.array(xs, dtype=float)])
-#         m = Matrix()
-#         matrix_B_j = m.MatrixBJ(self.augmented_matrix[:, :-1])
-#         matrix_f_j = m.MatrixFJ(self.augmented_matrix[:, :-1], np.transpose([self.augmented_matrix[:, -1]]))
-#         print("J 0: " + str(xs))
-#         for i in range(level):
-#             xs = np.dot(matrix_B_j, xs) + matrix_f_j
-#             print("J " + str(i + 1) + str(xs))
-
-#     def GaussSeidelSolve(self, xs, level = 5):
-#         xs = np.transpose([np.array(xs+[1], dtype=float)])
-#         print("GS 0: " + str(xs[:-1]))
-#         for i in range(level):
-#             for j in range (self.row):
-#                 xs[j] = self.__iteration_matrix[j].dot(xs)
-#             print("GS " + str(i + 1) + ": " + str(xs[:-1]))
-
-#     def SuccessiveOverRelaxation(self, xs, w, level = 5):
-#         xs = np.array(xs + [1], dtype=float)
-#         print("SOR w = " + str(w))
-#         print("SOR 0: " + str(xs[:-1]))
-#         for i in range(level):
-#             for j in range (self.row):
-#                 xs[j] = (1-w)*xs[j] + w*self.__iteration_matrix[j].dot(xs)
-#             print("SOR " + str(i + 1) + ": " + str(xs[:-1]))
